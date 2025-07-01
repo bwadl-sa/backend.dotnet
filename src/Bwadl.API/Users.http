@@ -1,0 +1,64 @@
+### Base URL
+@baseUrl = http://localhost:5281
+
+### Get all users
+GET {{baseUrl}}/api/users
+
+### Create a new user - Admin
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "John Admin",
+  "email": "john.admin@example.com",
+  "type": 1
+}
+
+### Create a new user - Manager
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Jane Manager",
+  "email": "jane.manager@example.com", 
+  "type": 2
+}
+
+### Create a new user - Employee
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Bob Employee",
+  "email": "bob.employee@example.com",
+  "type": 3
+}
+
+### Get a specific user (replace {id} with actual user ID)
+GET {{baseUrl}}/api/users/{id}
+
+### Update a user (replace {id} with actual user ID)
+PUT {{baseUrl}}/api/users/{id}
+Content-Type: application/json
+
+{
+  "name": "John Updated Admin",
+  "email": "john.updated@example.com",
+  "type": 1
+}
+
+### Delete a user (replace {id} with actual user ID)
+DELETE {{baseUrl}}/api/users/{id}
+
+### Test creating user with duplicate email (should fail)
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Another John",
+  "email": "john.admin@example.com",
+  "type": 2
+}
+
+### Test getting non-existent user
+GET {{baseUrl}}/api/users/00000000-0000-0000-0000-000000000000

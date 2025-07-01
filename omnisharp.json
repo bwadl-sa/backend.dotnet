@@ -1,0 +1,21 @@
+{
+  "solution": "Bwadl.sln",
+  "enableRoslynAnalyzers": true,
+  "enableEditorConfigSupport": true,
+  "enableImportCompletion": true,
+  "sdk": {
+    "includePrerelease": false,
+    "version": "8.0.411"
+  },
+  "formattingOptions": {
+    "enableEditorConfigSupport": true,
+    "organizeImports": true
+  },
+  "assemblies": [],
+  "excludeSearchPatterns": [
+    "**/bin/**",
+    "**/obj/**",
+    "**/.git/**",
+    "**/node_modules/**"
+  ]
+}
