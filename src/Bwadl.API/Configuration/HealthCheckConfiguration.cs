@@ -24,12 +24,16 @@ public static class HealthCheckConfiguration
                 return HealthCheckResult.Healthy("Memory usage is normal", data);
             });
 
+        // Get the base URL from configuration or use default
+        // This prevents hardcoded URLs that might not match the actual running port
+        var baseUrl = configuration["HealthChecks:BaseUrl"] ?? "http://localhost:5281";
+        
         services.AddHealthChecksUI(options =>
         {
             options.SetEvaluationTimeInSeconds(30);
             options.SetMinimumSecondsBetweenFailureNotifications(60);
-            options.AddHealthCheckEndpoint("Bwadl API", "http://localhost:5232/health");
-            options.AddHealthCheckEndpoint("Bwadl API Detailed", "http://localhost:5232/health/detailed");
+            options.AddHealthCheckEndpoint("Bwadl API", $"{baseUrl}/health");
+            options.AddHealthCheckEndpoint("Bwadl API Detailed", $"{baseUrl}/health/detailed");
         })
         .AddInMemoryStorage();
 
@@ -75,11 +79,20 @@ public static class HealthCheckConfiguration
             }
         });
         
+        // Health checks API endpoint for UI
+        app.UseHealthChecks("/health-api", new HealthCheckOptions
+        {
+            Predicate = _ => true,
+            ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+        });
+        
         // Health Checks UI with explicit configuration
         app.UseHealthChecksUI(config =>
         {
-            config.UIPath = "/healthchecks-ui";
-            config.ApiPath = "/healthchecks-api";
+            config.UIPath = "/health-ui";
+            config.ApiPath = "/health-api";
+            config.WebhookPath = "/health-webhooks";
+            config.ResourcesPath = "/health-ui-resources";
             config.AsideMenuOpened = true;
             config.PageTitle = "Bwadl API Health Checks";
         });

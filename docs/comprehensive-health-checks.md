@@ -63,8 +63,8 @@ Successfully switched from the simple health check configuration to the comprehe
 - `/health/detailed` - Detailed JSON with all data including memory stats
 
 ### UI Endpoints  
-- `/healthchecks-ui` - Full dashboard interface
-- `/healthchecks-api` - API endpoint for UI data
+- `/health-ui` - Full dashboard interface
+- `/health-api` - API endpoint for UI data
 
 ## UI Features
 - **Page Title**: "Bwadl API Health Checks"
@@ -101,7 +101,7 @@ curl http://localhost:5232/health/detailed | python3 -m json.tool
 Returns formatted JSON with all health check data and expanded memory information.
 
 ### 3. UI Dashboard
-Navigate to: http://localhost:5232/healthchecks-ui
+Navigate to: http://localhost:5232/health-ui
 - Shows real-time health status
 - Displays both basic and detailed endpoint data
 - Updates automatically every 30 seconds

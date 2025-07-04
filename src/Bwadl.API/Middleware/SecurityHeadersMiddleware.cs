@@ -16,7 +16,18 @@ public class SecurityHeadersMiddleware
         context.Response.Headers["X-Frame-Options"] = "DENY";
         context.Response.Headers["X-XSS-Protection"] = "1; mode=block";
         context.Response.Headers["Referrer-Policy"] = "strict-origin-when-cross-origin";
-        context.Response.Headers["Content-Security-Policy"] = "default-src 'self'";
+        
+        // More permissive CSP for health UI, stricter for other endpoints
+        if (context.Request.Path.StartsWithSegments("/health-ui") || 
+            context.Request.Path.StartsWithSegments("/health-ui-resources"))
+        {
+            context.Response.Headers["Content-Security-Policy"] = 
+                "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data:";
+        }
+        else
+        {
+            context.Response.Headers["Content-Security-Policy"] = "default-src 'self'";
+        }
 
         await _next(context);
     }

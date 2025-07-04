@@ -48,13 +48,13 @@ curl http://localhost:5232/healthz
 ```
 
 ### 2. UI Dashboard Working
-- URL: http://localhost:5232/healthchecks-ui
+- URL: http://localhost:5232/health-ui
 - Status: 200 OK
 - Content: Full HTML dashboard with JavaScript resources loading correctly
 
 ### 3. API Endpoint Working
 ```bash
-curl http://localhost:5232/healthchecks-api
+curl http://localhost:5232/health-api
 # Returns: JSON data for the UI dashboard
 ```
 
@@ -63,8 +63,8 @@ curl http://localhost:5232/healthchecks-api
 ### Health Check Endpoints
 - `/health` - Basic health check endpoint
 - `/healthz` - Health check for UI consumption  
-- `/healthchecks-ui` - Dashboard UI
-- `/healthchecks-api` - API endpoint for UI data
+- `/health-ui` - Dashboard UI
+- `/health-api` - API endpoint for UI data
 
 ### Static Files
 - `wwwroot` directory created
@@ -85,7 +85,7 @@ All endpoints confirmed working:
 - ✅ Health status displays correctly in dashboard
 
 ## Next Steps
-1. Open http://localhost:5232/healthchecks-ui in browser
+1. Open http://localhost:5232/health-ui in browser
 2. Verify dashboard shows health status with green indicators
 3. Check that health check data refreshes automatically (every 30 seconds)
 4. Test with different health check statuses if needed

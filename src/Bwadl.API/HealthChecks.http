@@ -2,17 +2,17 @@
 ### Now using the full HealthCheckConfiguration with memory monitoring
 
 ### 1. Basic Health Check (includes memory data)
-GET http://localhost:5232/health
+GET http://localhost:5281/health
 
 ### 2. Detailed Health Check (formatted JSON with all data)
-GET http://localhost:5232/health/detailed
+GET http://localhost:5281/health/detailed
 
 ### 3. Health Check UI Dashboard - COMPREHENSIVE
 ### Open this URL in your browser:
-### http://localhost:5232/healthchecks-ui
+### http://localhost:5281/health-ui
 
 ### 4. Health Check API Endpoint (powers the UI)
-GET http://localhost:5232/healthchecks-api
+GET http://localhost:5281/health-api
 
 ### 5. Test with HTTPS (certificate warning expected)
 GET https://localhost:7232/health
