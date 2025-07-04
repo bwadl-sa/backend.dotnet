@@ -49,10 +49,10 @@ if (!app.Environment.IsDevelopment())
 app.UseMiddleware<Bwadl.API.Middleware.ExceptionHandlingMiddleware>();
 app.UseMiddleware<Bwadl.API.Middleware.SecurityHeadersMiddleware>();
 
-// Enable static files for Health Checks UI (must be before UseRouting)
-app.UseStaticFiles();
-
 app.UseRouting();
+
+// Enable static files for Health Checks UI (after routing)
+app.UseStaticFiles();
 
 // Add Health Check endpoints (comprehensive configuration)
 app.UseHealthCheckConfiguration();

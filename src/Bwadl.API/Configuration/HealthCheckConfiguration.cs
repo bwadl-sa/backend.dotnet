@@ -24,18 +24,15 @@ public static class HealthCheckConfiguration
                 return HealthCheckResult.Healthy("Memory usage is normal", data);
             });
 
-        // Get the base URL from configuration or use default
-        // This prevents hardcoded URLs that might not match the actual running port
-        var baseUrl = configuration["HealthChecks:BaseUrl"] ?? "http://localhost:5281";
-        
         services.AddHealthChecksUI(options =>
         {
-            options.SetEvaluationTimeInSeconds(30);
+            options.SetEvaluationTimeInSeconds(15); // More frequent updates
             options.SetMinimumSecondsBetweenFailureNotifications(60);
-            options.AddHealthCheckEndpoint("Bwadl API", $"{baseUrl}/health");
-            options.AddHealthCheckEndpoint("Bwadl API Detailed", $"{baseUrl}/health/detailed");
+            // Use only the health-api endpoint
+            options.AddHealthCheckEndpoint("Bwadl API", "/health-api");
+            options.SetHeaderText("Bwadl API Health Dashboard");
         })
-        .AddInMemoryStorage();
+        .AddInMemoryStorage(); // This will reset the storage
 
         return services;
     }
