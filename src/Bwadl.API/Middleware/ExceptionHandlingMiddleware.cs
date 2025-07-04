@@ -20,6 +20,13 @@ public class ExceptionHandlingMiddleware
         {
             await _next(context);
         }
+        catch (OperationCanceledException) when (context.RequestAborted.IsCancellationRequested)
+        {
+            // Don't log cancellation as an error - it's expected behavior
+            _logger.LogDebug("Request was cancelled");
+            // Let the cancellation bubble up naturally
+            throw;
+        }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An unhandled exception occurred");
@@ -46,6 +53,7 @@ public class ExceptionHandlingMiddleware
             ArgumentException => (int)HttpStatusCode.BadRequest,
             UnauthorizedAccessException => (int)HttpStatusCode.Unauthorized,
             NotImplementedException => (int)HttpStatusCode.NotImplemented,
+            OperationCanceledException => (int)HttpStatusCode.RequestTimeout,
             _ => (int)HttpStatusCode.InternalServerError
         };
 

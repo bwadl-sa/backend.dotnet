@@ -24,6 +24,9 @@ builder.Services.AddSwaggerConfiguration();
 // Add API Versioning
 builder.Services.AddApiVersioningConfiguration();
 
+// Add Health Checks
+builder.Services.AddHealthCheckConfiguration(builder.Configuration);
+
 // Add Application and Infrastructure services
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -43,6 +46,10 @@ app.UseMiddleware<Bwadl.API.Middleware.ExceptionHandlingMiddleware>();
 app.UseMiddleware<Bwadl.API.Middleware.SecurityHeadersMiddleware>();
 
 app.UseRouting();
+
+// Add Health Check endpoints
+app.UseHealthCheckConfiguration();
+
 app.MapControllers();
 
 try

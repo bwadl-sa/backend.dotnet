@@ -28,10 +28,10 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<UserResponse>>> GetAllUsers()
+    public async Task<ActionResult<IEnumerable<UserResponse>>> GetAllUsers(CancellationToken cancellationToken)
     {
         var query = new GetAllUsersQuery();
-        var users = await _mediator.Send(query);
+        var users = await _mediator.Send(query, cancellationToken);
         
         var response = users.Select(user => new UserResponse(
             user.Id,
@@ -48,12 +48,12 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{id:guid}")]
-    public async Task<ActionResult<UserResponse>> GetUser(Guid id)
+    public async Task<ActionResult<UserResponse>> GetUser(Guid id, CancellationToken cancellationToken)
     {
         _logger.LogInformation("GET /api/users/{UserId} - Retrieving user by ID", id);
 
         var query = new GetUserQuery(id);
-        var user = await _mediator.Send(query);
+        var user = await _mediator.Send(query, cancellationToken);
 
         if (user == null)
         {
@@ -75,12 +75,12 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<ActionResult<UserResponse>> CreateUser([FromBody] CreateUserRequest request)
+    public async Task<ActionResult<UserResponse>> CreateUser([FromBody] CreateUserRequest request, CancellationToken cancellationToken)
     {
         try
         {
             var command = new CreateUserCommand(request.Name, request.Email, request.Type);
-            var user = await _mediator.Send(command);
+            var user = await _mediator.Send(command, cancellationToken);
 
             var response = new UserResponse(
                 user.Id,
@@ -102,14 +102,14 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("{id:guid}")]
-    public async Task<ActionResult<UserResponse>> UpdateUser(Guid id, [FromBody] UpdateUserRequest request)
+    public async Task<ActionResult<UserResponse>> UpdateUser(Guid id, [FromBody] UpdateUserRequest request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("PUT /api/users/{UserId} - Updating user", id);
 
         try
         {
             var command = new UpdateUserCommand(id, request.Name, request.Email, request.Type);
-            var user = await _mediator.Send(command);
+            var user = await _mediator.Send(command, cancellationToken);
 
             var response = new UserResponse(
                 user.Id,
@@ -136,14 +136,14 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{id:guid}")]
-    public async Task<IActionResult> DeleteUser(Guid id)
+    public async Task<IActionResult> DeleteUser(Guid id, CancellationToken cancellationToken)
     {
         _logger.LogInformation("DELETE /api/users/{UserId} - Deleting user", id);
 
         try
         {
             var command = new DeleteUserCommand(id);
-            await _mediator.Send(command);
+            await _mediator.Send(command, cancellationToken);
             
             _logger.LogInformation("DELETE /api/users/{UserId} - User deleted successfully", id);
             return NoContent();
