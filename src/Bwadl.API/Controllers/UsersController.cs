@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using Bwadl.API.Models.Requests;
 using Bwadl.API.Models.Responses;
 using Bwadl.Application.Features.Users.Commands.CreateUser;
@@ -12,7 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Bwadl.API.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[ApiVersion("1.0")]
+[Route("api/v{version:apiVersion}/users")]
+[Route("api/users")]
 public class UsersController : ControllerBase
 {
     private readonly IMediator _mediator;

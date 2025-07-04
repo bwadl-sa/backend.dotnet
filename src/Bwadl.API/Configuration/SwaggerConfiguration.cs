@@ -10,9 +10,21 @@ public static class SwaggerConfiguration
         {
             c.SwaggerDoc("v1", new OpenApiInfo
             {
-                Title = "Bwadl API",
+                Title = "Bwadl API V1",
                 Version = "v1",
-                Description = "A Clean Architecture API for User Management",
+                Description = "Clean Architecture API - Version 1 (Basic CRUD Operations)",
+                Contact = new OpenApiContact
+                {
+                    Name = "Development Team",
+                    Email = "dev@bwadl.com"
+                }
+            });
+
+            c.SwaggerDoc("v2", new OpenApiInfo
+            {
+                Title = "Bwadl API V2",
+                Version = "v2",
+                Description = "Clean Architecture API - Version 2 (Enhanced with Pagination and Metadata)",
                 Contact = new OpenApiContact
                 {
                     Name = "Development Team",
@@ -53,7 +65,8 @@ public static class SwaggerConfiguration
         app.UseSwagger();
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bwadl API v1");
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bwadl API V1");
+            c.SwaggerEndpoint("/swagger/v2/swagger.json", "Bwadl API V2");
             c.RoutePrefix = string.Empty; // Serve Swagger UI at root
         });
 

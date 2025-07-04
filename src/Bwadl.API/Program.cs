@@ -1,5 +1,6 @@
 using Bwadl.Application;
 using Bwadl.Infrastructure;
+using Bwadl.API.Configuration;
 using Serilog;
 
 // Configure Serilog
@@ -16,7 +17,12 @@ builder.Host.UseSerilog();
 // Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+
+// Add Swagger with versioning support
+builder.Services.AddSwaggerConfiguration();
+
+// Add API Versioning
+builder.Services.AddApiVersioningConfiguration();
 
 // Add Application and Infrastructure services
 builder.Services.AddApplication();
@@ -27,8 +33,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerConfiguration();
 }
 
 // Add middleware
