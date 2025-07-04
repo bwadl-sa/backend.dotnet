@@ -1,6 +1,18 @@
 ### Base URL
 @baseUrl = http://localhost:5281
 
+### Health Checks - Basic JSON response
+GET {{baseUrl}}/health
+
+### Health Checks - Detailed JSON response  
+GET {{baseUrl}}/health/detailed
+
+### Health Checks - UI Dashboard (open in browser)
+GET {{baseUrl}}/health-ui
+
+### Health Checks - UI API endpoint
+GET {{baseUrl}}/health-ui-api
+
 ### Get all users
 GET {{baseUrl}}/api/users
 

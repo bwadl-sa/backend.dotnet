@@ -39,15 +39,22 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerConfiguration();
 }
 
-app.UseHttpsRedirection();
+// Only use HTTPS redirection in production
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 // Add middleware
 app.UseMiddleware<Bwadl.API.Middleware.ExceptionHandlingMiddleware>();
 app.UseMiddleware<Bwadl.API.Middleware.SecurityHeadersMiddleware>();
 
+// Enable static files for Health Checks UI (must be before UseRouting)
+app.UseStaticFiles();
+
 app.UseRouting();
 
-// Add Health Check endpoints
+// Add Health Check endpoints (comprehensive configuration)
 app.UseHealthCheckConfiguration();
 
 app.MapControllers();

@@ -1,0 +1,38 @@
+### Health Check Testing - COMPREHENSIVE CONFIGURATION
+### Now using the full HealthCheckConfiguration with memory monitoring
+
+### 1. Basic Health Check (includes memory data)
+GET http://localhost:5232/health
+
+### 2. Detailed Health Check (formatted JSON with all data)
+GET http://localhost:5232/health/detailed
+
+### 3. Health Check UI Dashboard - COMPREHENSIVE
+### Open this URL in your browser:
+### http://localhost:5232/healthchecks-ui
+
+### 4. Health Check API Endpoint (powers the UI)
+GET http://localhost:5232/healthchecks-api
+
+### 5. Test with HTTPS (certificate warning expected)
+GET https://localhost:7232/health
+
+### COMPREHENSIVE FEATURES:
+### ✅ Memory monitoring with GC information
+### ✅ Self and database health checks  
+### ✅ Detailed endpoint with expanded data
+### ✅ UI dashboard with two endpoints monitored
+### ✅ Custom page title: "Bwadl API Health Checks"
+### ✅ 30-second refresh interval
+### ✅ All static resources loading correctly
+
+### HEALTH CHECKS INCLUDED:
+### - self: API is running
+### - database: Database is available  
+### - memory: Memory usage with GC stats (allocated, gen0, gen1, gen2)
+
+### VERIFICATION:
+### ✅ SimpleHealthCheckConfiguration.cs removed
+### ✅ Using comprehensive HealthCheckConfiguration.cs
+### ✅ Memory monitoring active
+### ✅ UI fully functional with dashboard
