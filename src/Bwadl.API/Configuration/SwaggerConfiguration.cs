@@ -67,7 +67,7 @@ public static class SwaggerConfiguration
         {
             c.SwaggerEndpoint("/swagger/v1/swagger.json", "Bwadl API V1");
             c.SwaggerEndpoint("/swagger/v2/swagger.json", "Bwadl API V2");
-            c.RoutePrefix = string.Empty; // Serve UI at root
+            c.RoutePrefix = "swagger"; // Change from empty to swagger
             c.DocumentTitle = "Bwadl API Documentation";
         });
 

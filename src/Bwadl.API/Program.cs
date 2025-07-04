@@ -36,11 +36,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerConfiguration();
 }
 
+app.UseHttpsRedirection();
+
 // Add middleware
 app.UseMiddleware<Bwadl.API.Middleware.ExceptionHandlingMiddleware>();
 app.UseMiddleware<Bwadl.API.Middleware.SecurityHeadersMiddleware>();
 
-app.UseHttpsRedirection();
+app.UseRouting();
 app.MapControllers();
 
 try
