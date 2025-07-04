@@ -1,6 +1,77 @@
 @Bwadl.API_HostAddress = http://localhost:5281
 
-GET {{Bwadl.API_HostAddress}}/weatherforecast/
+### Get Swagger Documentation
+GET {{Bwadl.API_HostAddress}}/swagger/index.html
+
+### Get all users (v1 - default)
+GET {{Bwadl.API_HostAddress}}/api/users
 Accept: application/json
+
+### Get all users (v1 - explicit)
+GET {{Bwadl.API_HostAddress}}/api/v1/users
+Accept: application/json
+
+### Get all users (v2)
+GET {{Bwadl.API_HostAddress}}/api/v2/users
+Accept: application/json
+
+### Get user by ID (v1)
+GET {{Bwadl.API_HostAddress}}/api/v1/users/1
+Accept: application/json
+
+### Get user by ID (v2)
+GET {{Bwadl.API_HostAddress}}/api/v2/users/1
+Accept: application/json
+
+### Create new user (v1)
+POST {{Bwadl.API_HostAddress}}/api/v1/users
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "email": "john.doe@example.com"
+}
+
+### Create new user (v2)
+POST {{Bwadl.API_HostAddress}}/api/v2/users
+Content-Type: application/json
+
+{
+  "firstName": "Jane",
+  "lastName": "Smith",
+  "email": "jane.smith@example.com"
+}
+
+### Update user (v1)
+PUT {{Bwadl.API_HostAddress}}/api/v1/users/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "John Updated",
+  "lastName": "Doe Updated",
+  "email": "john.updated@example.com"
+}
+
+### Update user (v2)
+PUT {{Bwadl.API_HostAddress}}/api/v2/users/1
+Content-Type: application/json
+
+{
+  "id": 1,
+  "firstName": "Jane Updated",
+  "lastName": "Smith Updated",
+  "email": "jane.updated@example.com"
+}
+
+### Delete user (v1)
+DELETE {{Bwadl.API_HostAddress}}/api/v1/users/1
+
+### Delete user (v2)
+DELETE {{Bwadl.API_HostAddress}}/api/v2/users/1
+
+### Health Check (if available)
+GET {{Bwadl.API_HostAddress}}/health
 
 ###

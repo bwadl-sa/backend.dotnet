@@ -64,6 +64,10 @@ jobs:
   code-quality:
     name: Code Quality
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     
     steps:
     - uses: actions/checkout@v4
@@ -73,10 +77,18 @@ jobs:
       with:
         dotnet-version: 8.0.x
         
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: csharp
+        
     - name: Restore dependencies
       run: dotnet restore
       
-    - name: Run CodeQL Analysis
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
+      
+    - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
       with:
-        languages: csharp
+        category: "/language:csharp"
